@@ -8,10 +8,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+
 const productRouter = require('./routes/products')
 
 // register the router
-app.use('/products', productRouter); // If the URL begins with /products, the rest
+app.use('/api/products', productRouter); // If the URL begins with /products, the rest
                                      // of the URL will be checked in productsRouter
 
 // Routes

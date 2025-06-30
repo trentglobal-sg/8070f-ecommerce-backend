@@ -1,16 +1,18 @@
 const express = require('express');
 const router = express.Router(); // <-- creates a new express router
+const productService= require('../services/productService');
+
 
 // a router stores route
-router.get('/', (req,res)=>{
-    res.json({
-        'message':'Get all the products'
-    })
+router.get('/', async (req,res)=>{
+    const products = await productService.getAllProducts();
+    res.json(products)
 })
 
-router.get('/:id', (req,res)=>{
+router.get('/:id', async (req,res)=>{
+    const product = await productService.getProductById(req.params.id);
     res.json({
-        'message':`Get product with product id of ${req.params.id}`
+        product
     })
 })
 

@@ -9,7 +9,7 @@ async function getUserById(id) {
     const [rows] = await pool.query("SELECT * FROM users WHERE users.id = ?", [id]);
     const user = rows[0];
 
-    const [preferences] = await pool.query(`SELECT preference_id, preference_name FROM user_marketing_preferences
+    const [preferences] = await pool.query(`SELECT marketing_preferences.id, preference FROM user_marketing_preferences
         JOIN marketing_preferences
         ON user_marketing_preferences.preference_id = marketing_preferences.id
         WHERE user_id = ?`, [id]);
@@ -18,9 +18,10 @@ async function getUserById(id) {
     return user;
 }
 
-async function createUser(name, email, password, salutation, country, marketing_preferences) {
+async function createUser({name, email, password, salutation, country, marketingPreferences}) {
+    let connection = null;
     try {
-        const connection = pool.getConnection();
+        connection = await pool.getConnection();
         await connection.beginTransaction();
         // 1. Create the new user table
         const [userResult] = await connection.query(
@@ -56,10 +57,12 @@ async function createUser(name, email, password, salutation, country, marketing_
             }
         }
         await connection.commit();
+        return userId;
     } catch (e) {
+        console.error(e);
         await connection.rollback();
     } finally {
-        connectio.release();
+        connection.release();
     }
 
 

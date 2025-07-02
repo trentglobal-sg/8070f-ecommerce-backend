@@ -9,12 +9,13 @@ app.use(express.json());
 app.use(cors());
 
 
-const productRouter = require('./routes/products')
+const productRouter = require('./routes/products');
+const userRouter = require('./routes/users')
 
 // register the router
 app.use('/api/products', productRouter); // If the URL begins with /products, the rest
                                      // of the URL will be checked in productsRouter
-
+app.use('/api/users', userRouter)
 // Routes
 app.get('/', (req, res) => {
   res.json({ message: "Welcome to the API" });

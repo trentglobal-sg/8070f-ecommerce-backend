@@ -12,6 +12,4 @@ const pool = mysql.createPool({
 
 });
 
-console.log(process.env.DB_PASSWORD)
-
 module.exports = pool;

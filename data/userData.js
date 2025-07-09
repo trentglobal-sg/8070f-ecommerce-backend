@@ -67,7 +67,15 @@ async function createUser({name, email, password, salutation, country, marketing
 
 
 }
-
+/*
+  {
+    name: String,
+    email: String,
+    salutation: String,
+    country: String,
+    marketingPreferences: [String]
+  }
+*/
 async function updateUser(id, { name, email, salutation, country, marketingPreferences }) {
     if (!id || typeof id !== 'number') {
         throw new Error('Invalid user ID');

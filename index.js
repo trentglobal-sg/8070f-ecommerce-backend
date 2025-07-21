@@ -4,15 +4,21 @@ require('dotenv').config();
 
 const app = express();
 
-// Middleware
-app.use(express.json());
+
 app.use(cors());
 
-
+const stripeRouter = require('./routes/stripe')
 const productRouter = require('./routes/products');
 const userRouter = require('./routes/users');
 const cartRouter = require('./routes/cart');
 const checkoutRouter = require('./routes/checkout');
+
+// make sure sure to register the router for the webhook
+// BEFORE app.use(express.json)
+app.use('/stripe', stripeRouter)
+
+// Middleware for non-webhook routes
+app.use(express.json());
 
 // register the router
 app.use('/api/products', productRouter); // If the URL begins with /products, the rest

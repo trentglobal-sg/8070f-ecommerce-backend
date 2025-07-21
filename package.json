@@ -4,7 +4,9 @@
   "description": "## Using codespace To login into the database, use `mysql -u root -pmariadb -h 127.0.0.1`",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "",
@@ -17,5 +19,8 @@
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.14.1",
     "stripe": "^18.3.0"
+  },
+  "devDependencies": {
+    "jest": "^30.0.4"
   }
 }
